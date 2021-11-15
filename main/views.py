@@ -136,7 +136,8 @@ class DeletePost(View):
         postId = pk
         deleted = models.Post.objects.filter(id = postId).delete()
         if deleted:
-            return redirect('/user/')
+            print('/user/',self.request.user.id )
+            return redirect('/user/'+str(self.request.user.id))
         return HttpResponse('unable to delete')
 
 
