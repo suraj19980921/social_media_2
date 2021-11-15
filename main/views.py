@@ -81,10 +81,11 @@ class UpdateProfile(View):
     
     def post(self,request,pk):
         image = self.request.FILES['image']
-        updated = models.Profile.objects.filter(user = pk).update(image = image)
-        if updated:
-            return redirect('/user/'+str(self.request.user.id))
-        return HttpResponse('unable to update')
+        profile = models.Profile.objects.get(user_id = pk)
+        profile.image = image
+        profile.save()
+        return redirect('/user/'+str(self.request.user.id))
+       
 
 
 

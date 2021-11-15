@@ -12,21 +12,21 @@
               <div class="fw-bold text-center fs-1"> {{request.user.first_name}} {{request.user.last_name}} </div>
             </div>
             <div class="user-img-update">
-            {% if request.user.profile_set.all %}
-            <form action="/update_profile/{{request.user.id}}" method="post" enctype="multipart/form-data">
-               {% csrf_token %}
-               {{profile_form}}
-               <button type="submit" class="btn btn-sm btn-primary updt-img-btn">Update Image</button>
-            </form>
-        {% else %}
-            <form action="/create_profile/" method="post"  enctype="multipart/form-data">
-                {% csrf_token %}
-                {{profile_form}}
-                <button type="submit" class="btn btn-md btn-primary updt-img-btn">Add Image</button>
-            </form>
-        {% endif %}
+                {% if  request.user.profile_set.all %}
+                <form action="/update_profile/{{request.user.id}}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{profile_form.as_p}}
+                    <button type="submit" class="btn btn-md btn-primary">Update</button>
+                </form>
+                {% else %}
+                <form action="/create_profile/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{profile_form.as_p}}
+                    <button type="submit" class="btn btn-md btn-primary">Add Image</button>
+                </form>
+                {% endif %}
         
-    </div>
+            </div>
  </div>
 
 
