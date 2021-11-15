@@ -106,7 +106,7 @@ class UserPost(LoginRequiredMixin,View):
         if pk != self.request.user.id:
             return render(request,'main/profile.html',context)
         else:
-            return render(request,'main/user.html',context)dsgfgrfg
+            return render(request,'main/user.html',context)
    
 
 class ShowPost(LoginRequiredMixin,View):
