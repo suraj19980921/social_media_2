@@ -270,7 +270,6 @@ class SearchFriend(LoginRequiredMixin,View):
                                             Q(search_name__contains = value)).exclude(id = self.request.user.id)
         
         friends = Home.friends_details(self)
-
         
         context = {'people':search_frnd,
                     'idList':friends['frndidList'],
