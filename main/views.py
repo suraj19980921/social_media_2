@@ -2,10 +2,9 @@ from django.http import request
 from django.shortcuts import redirect, render
 from django.http.response import HttpResponse, JsonResponse
 from django.core.serializers import serialize
-from django.views.generic import TemplateView,CreateView
+from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.base import View
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.base import View 
 from django.views.generic.list import ListView
 from django.db.models import Q
 from main import models
@@ -65,7 +64,7 @@ class Home(LoginRequiredMixin,ListView):
         return context
 
 
-class CreateProfile(CreateView):
+class CreateProfile(LoginRequiredMixin,CreateView):
     model = models.Profile
     form_class = forms.ProfileForm
     tempalte = 'main/user.html'
@@ -77,7 +76,7 @@ class CreateProfile(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class UpdateProfile(View):
+class UpdateProfile(LoginRequiredMixin,View):
     
     def post(self,request):
         image = self.request.FILES['image']
@@ -90,7 +89,7 @@ class UpdateProfile(View):
 
 
 
-class UserPost(View):
+class UserPost(LoginRequiredMixin,View):
 
     def get(self, request,pk):
         posts = models.Post.objects.filter(user_id = pk).order_by('-date')
@@ -110,14 +109,14 @@ class UserPost(View):
             return render(request,'main/user.html',context)
    
 
-class ShowPost(View):
+class ShowPost(LoginRequiredMixin,View):
     def get(self, request):
         post = models.Post.objects.filter(id = self.request.GET['postId'])
         post = json.loads(serialize('json', post))
         return JsonResponse({'post':post})
 
 
-class CreatePost(CreateView):
+class CreatePost(LoginRequiredMixin,CreateView):
     model = models.Post
     form_class = forms.PostForm
     template_name = 'main/home.html'
@@ -128,7 +127,7 @@ class CreatePost(CreateView):
         return super().form_valid(form)
 
 
-class UpdatePost(View):
+class UpdatePost(LoginRequiredMixin,View):
 
     def post(self,request):
         postId = self.request.POST['postId']
@@ -139,7 +138,7 @@ class UpdatePost(View):
         return HttpResponse('Unable to update')
 
 
-class DeletePost(View):
+class DeletePost(LoginRequiredMixin,View):
     def get(self, request,pk):
         postId = pk
         deleted = models.Post.objects.filter(id = postId).delete()
@@ -150,7 +149,7 @@ class DeletePost(View):
 
 
 
-class CreateLike(View):
+class CreateLike(LoginRequiredMixin,View):
    
     def post(self, request):
         like = models.Like.objects.filter(user = self.request.user, like = True, post =models.Post.objects.get(id = self.request.POST['post_id'] ))
@@ -164,7 +163,7 @@ class CreateLike(View):
             likes = models.Like.objects.filter(post =self.request.POST['post_id'] ).count()
             return JsonResponse({'likes':likes})
    
-class Comment(View):
+class Comment(LoginRequiredMixin,View):
 
     def post(self,request):
         post =  models.Post.objects.get(id = self.request.POST['post_id'])
@@ -185,7 +184,7 @@ class Comment(View):
         commentsData = json.loads(serialize('json',comments)) 
         return JsonResponse({'commentCount':commentCount,'comments':commentsData,'name':name})
 
-class DeleteComment(View):
+class DeleteComment(LoginRequiredMixin,View):
     
     def post(self,request):
         comments = models.Comment.objects.filter(id = self.request.POST['id']).delete()
@@ -195,7 +194,7 @@ class DeleteComment(View):
         return HttpResponse('unable to delete')
 
 
-class ShowFriends(Home, ListView,):
+class ShowFriends(Home,LoginRequiredMixin,ListView,):
     model = models.Friend
     template_name = 'main/friends.html'
    
@@ -215,7 +214,7 @@ class ShowFriends(Home, ListView,):
         return context
 
 
-class SendRequest(ShowFriends, View):
+class SendRequest(ShowFriends,LoginRequiredMixin, View):
     
     def get(self, request, pk):
         requestSent = models.FriendRequest.objects.filter(sender = self.request.user,receiver_id=pk)
@@ -228,7 +227,7 @@ class SendRequest(ShowFriends, View):
             else:
                 return HttpResponse('unable to send')
 
-class AcceptRequest(View):
+class AcceptRequest(LoginRequiredMixin,View):
     def get(self, request,pk):
         personOne_id = self.request.user.id
         personTwo_id = pk
@@ -241,24 +240,24 @@ class AcceptRequest(View):
             return HttpResponse('unable to accept')
 
 
-class RemoveRequest(View):
+class RemoveRequest(LoginRequiredMixin,View):
     def get(self, request,pk):
             models.FriendRequest.objects.filter(sender_id = pk).delete()
             return redirect('/friends/')
 
-class CancelRequest(View):
+class CancelRequest(LoginRequiredMixin,View):
     def get(self, request,pk):
             models.FriendRequest.objects.filter(receiver_id = pk).delete()
             return redirect('/friends/')
 
-class RemoveFriend(View):
+class RemoveFriend(LoginRequiredMixin,View):
     def get(self, request,pk):
         unfriend = models.Friend.objects.filter(id = pk).delete()
         if unfriend:
             return redirect('/friends')
         return HttpResponse('unable to delete')
   
-class SearchFriend(View):
+class SearchFriend(LoginRequiredMixin,View):
     
     def post(self, request):
         value = self.request.POST['search_friend'].split()
