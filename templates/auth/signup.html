@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="text-center text" style="margin-top:2%">Signup</h2>
+    <div class="d-flex justify-content-center">
+        <div class="signup-box">
+            <form action="/auth/signup/" method="post">
+                {% csrf_token %}
+                 {{form.as_p}}
+                 <button type="submit" class="btn btn-md btn-primary auth-button">Submit</button>
+             </form>
+            
+            <div class="text-center mt-1"><a href="/auth/login/"  style="font-weight:bold; color:black; text-decoration:none;"> &larr; Back </a></div>
+        </div>    
+    </div>
+</div>
+
+ 
+{% endblock %}

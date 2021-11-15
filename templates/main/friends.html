@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+<div class="row">
+    <div class="col sm-6">
+       
+        <h4 class="heading">Friends</h4>
+
+        {% if friends %}
+        <div class="friendsBox">
+        {% for friend in friends %}
+
+            {% if friend.personOne.id == request.user.id %}
+
+            <div class="card mb-2" style="width:80%;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            
+                            {% for frndimage in friend.personTwo.profile_set.all %}
+                                <img src="/media/{{frndimage.image}}" alt="{{friend.personTwo.first_name}} {{friend.personTwo.last_name}}" style="height:50px; width:100px;">
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-4">
+                            <h5  class="mt-2"><a href="/user/{{friend.personTwo.id}}" class="text-dark"> {{friend.personTwo.first_name}} {{friend.personTwo.last_name}}</a></h5>
+                        </div>
+                        <div class="col-sm-5">
+                            <div style="display:flex;">
+                                <a href="/remove_frnd/{{friend.id}}" class="btn btn-danger btn-md">Unfriend</a>
+                                
+                                {% for frnd in  friend.personTwo.profile_set.all %}
+                                {% if frnd.online %}
+                                    <p class="text-success fw-bold" style="margin-left:20%;">Online</p>
+                                {% endif %}
+                            {% endfor %}
+                               
+                            </div>
+                           
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            {% else %}
+
+
+            <div class="card mb-2" style="width:80%;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {% for frnd in friend.personOne.profile_set.all %}
+                                <img src="/media/{{frnd.image}}" alt="{{friend.personOne.first_name}} {{friend.personOne.last_name}}" style="height:50px; width:100px;">
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-4">
+                            <h5  class="mt-2"><a href="/user/{{friend.personOne.id}}" class="text-dark"> {{friend.personOne.first_name}} {{friend.personOne.last_name}}</a></h5>
+                        </div>
+                        <div class="col-sm-5">
+                            <div style="display: flex;">
+                                <a href="/remove_frnd/{{friend.id}}" class="btn btn-danger">Unfriend</a>
+                                {% for frnd in friend.personOne.profile_set.all %}
+                                    {% if frnd.online %}
+                                        <p class="text-success fw-bold" style="margin-left:20%;">Online</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+              
+            {% endif %}
+       
+        {% endfor %}
+        </div>
+        {% else %}
+            <p class="fs-5 text-danger mx-5">No friends yet </p>
+        {% endif %}
+
+            <h4 class="heading">Friend Request Sent </h4>
+            <div class="friendRequestSentBox">
+          
+            {% for friend in requestSent %}
+
+                <div class="card mb-2" style="width:80%;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {% for frnd in friend.receiver.profile_set.all %}
+                                    <img src="/media/{{frnd.image}}"  alt="{{friend.receiver.first_name}} {{friend.receiver.last_name}}" style="height:50px; width:100px;">
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-4">
+                               <h5><a href="/user/{{friend.receiver.id}}" class="text-dark"> {{friend.receiver.first_name}} {{friend.receiver.last_name}}</a></h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="/cancel_req/{{friend.receiver.id}}" class="btn btn-danger"> Cancel</a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+               
+            {% endfor %}
+      
+        </div>
+        <h4 class="heading">Friend Request Received </h4>
+        <div class="friendRequestReceivedBox">
+        {% for friend in requestReceived %}
+
+        <div class="card mb-2"  style="width:80%;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        {% for frnd in friend.sender.profile_set.all %}
+                            <img src="/media/{{frnd.image}}" alt="{{friend.sender.first_name}} {{friend.sender.last_name}}" style="height:50px; width:100px;">
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-4">
+                        <h5><a href="/user/{{friend.sender.id}}" class="text-darK"> {{friend.sender.first_name}} {{friend.sender.last_name}}</a></h5>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/accept_req/{{friend.sender.id}}" class="btn btn-success">Accept</a>
+                        <a href="/remove_req/{{friend.sender.id}}" class="btn btn-danger">Remove</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+       
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="col sm-6">
+        <h4 class="heading">People May you know</h4>
+     <div class="peopleBox">
+        {% for person in people %}
+          
+        <div class="card mb-2"  style="width:80%;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        {% for psn in person.profile_set.all %}
+                            <img src="/media/{{psn.image}}" alt=" {{person.first_name}} {{person.last_name}}" style="height:50px; width:100px;"">
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-4">
+                        <h5><a href="/user/{{person.id}}" class="text-dark">{{person.first_name}} {{person.last_name}}</a></h5>
+                    </div>
+                    <div class="col-sm-4">
+                        <a  href="/send_request/{{person.id}}" class="btn btn-primary">Send Request</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+       
+       {% endfor %}
+     </div>  
+    </div>
+  </div>
+</div>
+
+{% endblock %}

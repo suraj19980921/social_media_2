@@ -1,0 +1,136 @@
+body{
+    background-image: url("/static/media/1308896.jpg");
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    background-attachment: fixed;
+      
+}
+
+
+.profile-box{
+            width:100%;
+            padding:20px;
+}
+
+.post{
+    background-color: rgb(147, 233, 147);
+    width:35%;
+    height:100%;
+}
+.commentBox{
+    background-color: cadetblue;
+    height: 80px;
+    border-radius:20px;
+    border-left: solid mediumaquamarine 5px;
+    border-right: solid mediumaquamarine 5px;
+    overflow:auto;
+    padding-left:10px;
+    
+}
+
+.commentUser{
+    font-size: small;
+    font-weight: bold;
+}
+
+.commentDelete{
+
+    color:red;
+    font-weight: bold;
+    text-align: right;
+    margin-left:80%;
+
+}
+.commentDelete:hover{
+
+    cursor: default;
+}
+
+.card-body a{
+
+    text-decoration: none;
+    cursor: default;
+}
+
+.heading{
+    
+    background-color: #85b858;
+    color:white;
+    margin-top:10px;
+    padding:10px;
+    width:90%;
+}
+
+.peopleBox{
+
+    height: 100%;
+    overflow: auto;
+}
+
+.a{
+
+    display: inline;
+}
+
+.friendsBox{
+    
+    height:25%;
+    overflow: auto;
+}
+
+.friendRequestSentBox{
+    height:25%;
+    overflow: auto;
+}
+
+.friendRequestReceivedBox{
+    height:25%;
+    overflow: auto;
+}
+
+.user-img-update{
+    background-color: greenyellow;
+    padding:10px;
+    border-radius:10px;
+    width:40%;
+}
+
+
+
+@media screen and (max-width:950px){
+
+    .user-img-update{
+        
+        width:60%;
+       
+    }
+}
+
+@media screen and (max-width:580px) {
+    
+    .card-footer-item{
+        margin-left: 10%;
+    }
+
+    .user-img-update{
+        
+        width:100%;
+    }
+
+    .friendsBox{
+    
+        height:300px;
+      
+    }
+    
+    .friendRequestSentBox{
+        height:300px;
+       
+    }
+    
+    .friendRequestReceivedBox{
+        height: 300px;;
+       
+    }
+    
+}

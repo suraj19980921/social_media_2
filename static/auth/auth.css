@@ -1,0 +1,44 @@
+.loginbox{
+    width: 400px;
+    padding:20px;
+    border: solid darkcyan 2px;
+    border-radius: 5px;
+    background-color: white;
+  
+
+}
+
+.loginbox form  p label{
+
+    font-weight: bold;
+   
+}
+
+.auth-button{
+
+    width:100%;
+}
+
+.signup-box{
+    width:30%;
+    border: solid darkcyan 2px;
+    border-radius: 5px;
+    padding:20px;
+    background-color: white;
+}
+
+.signup-box form  p label{
+
+    font-weight: bold;
+}
+
+@media screen and (max-width:480px) {
+    .loginbox{
+        margin-top:80px;
+        width: 100%;
+    }
+
+    .signup-box{
+        width:100%;
+    }
+}
