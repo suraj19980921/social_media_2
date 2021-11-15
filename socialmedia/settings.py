@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY',default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',default='TRUE')
+DEBUG = config('DEBUG',cast=bool , default='TRUE')
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -86,15 +86,15 @@ WSGI_APPLICATION = 'socialmedia.wsgi.application'
 
 if DEBUG == True:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+                    'default': {
+                    'ENGINE': 'django.db.backends.sqlite3',
+                    'NAME': BASE_DIR / 'db.sqlite3',
+                    }
+                }
 else:
-    DATABASES={
-        'default': dj_database_url.config(default=config("DATABASE_URL"))
-    }
+     DATABASES = {
+                    'default' : dj_database_url.config(default=config('DATABASE_URL'))
+     }
 
 
 # Password validation

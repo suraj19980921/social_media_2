@@ -16,7 +16,12 @@
         </div>
     </div>
    
- 
+    <!--messages-->
+    {% if messages %}
+        {% for message in messages %}
+         <p id="login_messages" data-login_messages="{{message}}"></p>
+        {% endfor %}
+    {% endif %}
 </div>
 
 {% endblock %}

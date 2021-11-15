@@ -95,7 +95,9 @@ body{
     width:40%;
 }
 
-
+.errorlist{
+    display: none;
+}
 
 @media screen and (max-width:950px){
 
