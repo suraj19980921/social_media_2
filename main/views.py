@@ -79,9 +79,9 @@ class CreateProfile(CreateView):
 
 class UpdateProfile(View):
     
-    def post(self,request,pk):
+    def post(self,request):
         image = self.request.FILES['image']
-        profile = models.Profile.objects.get(user_id = pk)
+        profile = models.Profile.objects.get(user = self.request.user)
         profile.image = image
         profile.save()
         return redirect('/user/'+str(self.request.user.id))
