@@ -103,7 +103,7 @@ class UserPost(LoginRequiredMixin,View):
         if request.is_ajax():
             posts = json.loads(serialize('json',posts))
             return JsonResponse({'posts':posts})
-        if pk != request.user.id:
+        if pk != self.request.user.id:
             return render(request,'main/profile.html',context)
         else:
             return render(request,'main/user.html',context)
@@ -270,7 +270,7 @@ class SearchFriend(LoginRequiredMixin,View):
                                             Q(search_name__contains = value)).exclude(id = self.request.user.id)
         
         friends = Home.friends_details(self)
-        
+
         context = {'people':search_frnd,
                     'idList':friends['frndidList'],
                     'rsList':friends['rslist']
