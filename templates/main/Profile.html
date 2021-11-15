@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-sm btn-danger " onclick="closeComments('{{post.id}}')">Close Comments</button>
                     </div>
             
-                    <form action="#"  id="commentForm" class="mb-2">dfdgrgerger
+                    <form action="#"  id="commentForm" class="mb-2">
                         {% csrf_token %}
                         {{comment_form.as_p}}
                         <button type="button" id="commentButton" onclick="checkButton('{{post.id}}')">Submit</button>
