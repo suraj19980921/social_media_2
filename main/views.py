@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import redirect, render
 from django.http.response import HttpResponse, JsonResponse
 from django.core.serializers import serialize
@@ -68,17 +69,23 @@ class CreateProfile(CreateView):
     model = models.Profile
     form_class = forms.ProfileForm
     tempalte = 'main/user.html'
-    success_url = '/user/'
+    
+    def get_success_url(self):
+        return '/user/'+str(self.request.user.id)
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class UpdateProfile(UpdateView):
-    model = models.Profile
-    form_class = forms.ProfileForm
-    tempalte = 'main/user.html'
-    success_url = '/user/'
+class UpdateProfile(View):
+    
+    def post(self,request,pk):
+        image = self.request.FILES['image']
+        updated = models.Profile.objects.filter(user = pk).update(image = image)
+        if updated:
+            return redirect('/user/'+str(self.request.user.id))
+        return HttpResponse('unable to update')
+
 
 
 
@@ -136,7 +143,6 @@ class DeletePost(View):
         postId = pk
         deleted = models.Post.objects.filter(id = postId).delete()
         if deleted:
-            print('/user/',self.request.user.id )
             return redirect('/user/'+str(self.request.user.id))
         return HttpResponse('unable to delete')
 

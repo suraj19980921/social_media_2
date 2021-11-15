@@ -6,20 +6,20 @@
 
         <div class="card mb-3 pl-1 pr-1 mb-2 mt-5" style="width:100%; align-items:center; padding:10px; border: solid 2px #186A3B;">
             {% for profile in request.user.profile_set.all%}
-                <img src="/media/{{profile.image}}" alt="" style="width:50%;">
+                    <img src="/media/{{profile.image}}" alt="" style="width:50%;">      
             {% endfor %}
             <div class="card-body">
               <div class="fw-bold text-center fs-1"> {{request.user.first_name}} {{request.user.last_name}} </div>
             </div>
             <div class="user-img-update">
             {% if request.user.profile_set.all %}
-            <form action="/update_profile/{{profile.id}}" method="post" enctype="multipart/form-data" class="d-flex">
+            <form action="/update_profile/{{request.user.id}}" method="post" enctype="multipart/form-data">
                {% csrf_token %}
                {{profile_form}}
                <button type="submit" class="btn btn-sm btn-primary updt-img-btn">Update Image</button>
             </form>
         {% else %}
-            <form action="/create_profile/" method="post" id="update_form" enctype="multipart/form-data">
+            <form action="/create_profile/" method="post"  enctype="multipart/form-data">
                 {% csrf_token %}
                 {{profile_form}}
                 <button type="submit" class="btn btn-md btn-primary updt-img-btn">Add Image</button>

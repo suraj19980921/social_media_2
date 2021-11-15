@@ -1,6 +1,7 @@
 from django.urls import path
 from main import views
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
 
@@ -22,4 +23,5 @@ urlpatterns = [
                 path('remove_req/<int:pk>',views.RemoveRequest.as_view(), name="acccept_req"),
                 path('cancel_req/<int:pk>',views.CancelRequest.as_view(), name="cancel_req"),
                 path('search/',views.SearchFriend.as_view(), name="search"),
-]
+
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

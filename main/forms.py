@@ -6,8 +6,12 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ['image']
+    
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['image'].widget = forms.FileInput(attrs={'class':'form-control'})
         
-
+        
 class PostForm(forms.ModelForm):
     class Meta:
         model = models.Post
@@ -18,7 +22,7 @@ class PostForm(forms.ModelForm):
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.fields['image'].widget = forms.ImageField(attrs={'class':'form-control'})
+            self.fields['image'].widget = forms.FileInput(attrs={'class':'form-control'})
 
 
 class CommentForm(forms.ModelForm):
