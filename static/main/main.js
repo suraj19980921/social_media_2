@@ -212,5 +212,13 @@ $(document).ready(function(){
             return false
         }
     });
+
+    $('form#addProfile').on('submit',function(){
+        var image = $(this).find('[name="image"]')[0].files.length;
+        if(image === 0){
+            alertify.error('please select image ');
+            return false
+        }
+    });
 });
 
