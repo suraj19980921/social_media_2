@@ -101,6 +101,10 @@ body{
         margin-left:5%;
     }
 
+    .card-footer-links{
+        margin-left:30%;
+    }
+
     .user-img-update{
         
         width:100%;

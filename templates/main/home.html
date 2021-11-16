@@ -37,7 +37,7 @@
                   <div class="col-sm-6">
                     <a id="likes"  class="card-link" onclick="like('{{post.id}}')"> <span id="likecount_{{post.id}}"> {{post.like_set.all.count}}</span> Likes </a>
                   </div>
-                  <div class="col-sm-6 card-footer-item">
+                  <div class="col-sm-6 card-footer-links">
                     <a id="comment"  class="card-link" onclick="commentSection('{{post.id}}')"><span id="commentcount_{{post.id}}">  {{post.comment_set.all.count}} </span> Comments </a>  
                   </div>
                 </div>

@@ -29,10 +29,16 @@
                         <img src="{{post.image}}" alt="" id="postImage_{{post.id}}" style="width:100%;" >
                     {% endif %}
                     <p class="card-text" id="postContent_{{post.id}}">{{post.content}}</p>
-   
-                    <a id="likes"  class="card-link" onclick="like('{{post.id}}')"> <span id="likecount_{{post.id}}"> {{post.like_set.all.count}}</span> Likes </a>
-                    <a id="comment"  class="card-link" onclick="commentSection('{{post.id}}')"><span id="commentcount_{{post.id}}">{{post.comment_set.all.count}} </span> Comments </a> 
-        
+                    <div class="row" style="border-top: solid grey 1px;">
+                        <div class="d-flex">
+                            <div class="col-sm-6">
+                                <a id="likes"  class="card-link" onclick="like('{{post.id}}')"> <span id="likecount_{{post.id}}"> {{post.like_set.all.count}}</span> Likes </a>
+                            </div>
+                            <div class="col-sm-6 card-footer-links">
+                                <a id="comment"  class="card-link" onclick="commentSection('{{post.id}}')"><span id="commentcount_{{post.id}}">{{post.comment_set.all.count}} </span> Comments </a> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="commentSection_{{post.id}}" style="display:none; padding:10px;">
                 
