@@ -119,5 +119,9 @@ body{
     .heading{
         width:100%;
     }
+
+    .view{
+        display: flex;
+    }
        
 }

@@ -3,34 +3,39 @@
 
 {% block content %}
 
-<div style="margin-top:2%; margin-left:2%;">
+<div class="container-fluid">
     <p class='text-dark fs-3 fw-bold'>Found {{people.count}} persons </p>
-</div>
+
 {% for person in people %}
-          
-        <div class="card mb-2" style="width:36rem; margin-left: 10%;">
+    <div class="row">
+        <div class="d-flex" style="width:100%;">
+        <div class="card mb-2" style="width:36rem; margin-left:10%;">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="d-flex">
+                    <div class="col-sm-4 ">
                         {% for psn in person.profile_set.all %}
                             <img src="/media/{{psn.image}}" alt=" {{person.first_name}} {{person.last_name}}" style="height:50px; width:100px;"">
                         {% endfor %}
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mx-1">
                         <h5 class="mt-1"><a href="/user/{{person.id}}" class="text-dark">{{person.first_name}} {{person.last_name}}</a></h5>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mx-2">
                         {% if person.id in idList %}
                             <p class="text-success fs-5 fw-bold ">Friends</p>
                         {% elif person.id in rsList %}
-                            <p class="text-primary fs-5 fw-bold ">Request Sent</p>
+                            <p class="text-primary fw-bold mt-1" style="font-size:large;">Request Sent</p>
                         {%else%}
                             <a  href="/send_request/{{person.id}}" class="btn btn-primary">Send Request</a>
                         {% endif %}
                     </div>
-                </div> 
+                </div>
+            </div> 
             </div>
-        </div>
-       
+        </div> 
+    </div>
+</div>
        {% endfor %}
+    
 {% endblock %}
