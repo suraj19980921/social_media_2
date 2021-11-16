@@ -206,9 +206,7 @@ function closeUpdateForm(postId){
  
 $(document).ready(function(){
     $('form#updateProfile').on('submit',function(){
-        alert("hello 1st");
         var image = $(this).find('[name="image"]')[0].files.length;
-        alert(image);
         if(image === 0){
             alertify.error('please select image ');
             return false
