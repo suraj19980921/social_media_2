@@ -98,7 +98,7 @@ body{
 @media screen and (max-width:580px) {
     
     .card-footer-item{
-        margin-left: 8%;
+        margin-left:5%;
     }
 
     .user-img-update{
