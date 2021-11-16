@@ -1,3 +1,4 @@
+from django.db.models.functions.text import Lower
 from django.http import request
 from django.shortcuts import redirect, render
 from django.http.response import HttpResponse, JsonResponse
@@ -266,11 +267,11 @@ class SearchFriend(LoginRequiredMixin,View):
     def post(self, request):
         value = self.request.POST['search_friend'].split()
         if len(value)-1 == 1:
-            value = value[0]+value[1]
+            value = (value[0]+value[1]).lower()
         else:
-            value = value[0]
+            value = value[0].lower()
         
-        search_frnd = models.User.objects.annotate(search_name = Concat('first_name','last_name')).filter(
+        search_frnd = models.User.objects.annotate(search_name = Lower(Concat('first_name','last_name'))).filter(
                                             Q(search_name__contains = value)).exclude(id = self.request.user.id)
         
         friends = Home.friends_details(self)
