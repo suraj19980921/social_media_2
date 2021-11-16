@@ -130,10 +130,14 @@ class CreatePost(LoginRequiredMixin,CreateView):
 class UpdatePost(LoginRequiredMixin,View):
 
     def post(self,request):
-        postId = self.request.POST['postId']
-        updatedPost = self.request.POST['updatedPost']
-        updated = models.Post.objects.filter(id= postId).update(post = updatedPost)
-        if updated:
+        
+        postId = self.request.POST.get('postId')
+        postContent = str(self.request.POST.get('updatedPost'))
+        image = self.request.FILES.get('updatedImage')
+        post = models.Post.objects.get(id= postId)
+        post.post = postContent
+        post.image = image
+        if post.save():
             return HttpResponse('ok')
         return HttpResponse('Unable to update')
 

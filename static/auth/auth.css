@@ -20,16 +20,21 @@
 }
 
 .signup-box{
-    width:30%;
+    width:400px;
     border: solid darkcyan 2px;
     border-radius: 5px;
-    padding:20px;
+    padding:12px;
     background-color: white;
 }
 
 .signup-box form  p label{
 
     font-weight: bold;
+}
+
+.signup-box form p .helptext{
+    font-size: small;
+    color:rgb(17, 116, 245);
 }
 
 @media screen and (max-width:480px) {

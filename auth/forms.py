@@ -28,8 +28,10 @@ class SingupForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control','title':'Password must contain 8 characters and upper case,lower case,digit and a special charcarter'})
         self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
 
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
+
+        self.fields['password1'].help_text = 'Password must contain 8 characters and upper case,lower case,digit and a special charcarter'

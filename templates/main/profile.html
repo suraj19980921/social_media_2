@@ -26,15 +26,15 @@
                     <div class="fw-bold">{{post.user.first_name}} {{post.user.last_name}}</div>
                     <p>{{post.date}}</p>
                     {% if post.image %}
-                        <img src="{{post.image}}" alt="" style="width:100%;">
+                        <img src="{{post.image}}" alt="" id="postImage_{{post.id}}" style="width:100%;" >
                     {% endif %}
                     <p class="card-text" id="postContent_{{post.id}}">{{post.content}}</p>
-          
+   
                     <a id="likes"  class="card-link" onclick="like('{{post.id}}')"> <span id="likecount_{{post.id}}"> {{post.like_set.all.count}}</span> Likes </a>
                     <a id="comment"  class="card-link" onclick="commentSection('{{post.id}}')"><span id="commentcount_{{post.id}}">{{post.comment_set.all.count}} </span> Comments </a> 
         
                 </div>
-                <div id="commentSection_{{post.id}}" style="display:none;">
+                <div id="commentSection_{{post.id}}" style="display:none; padding:10px;">
                 
                     <div style="margin-left:70%;">
                         <button type="button" class="btn btn-sm btn-danger " onclick="closeComments('{{post.id}}')">Close Comments</button>
@@ -48,16 +48,6 @@
                     <div id="commentsList_{{post.id}}">
                 
                     </div>
-                </div>
-    
-                <div>
-                    <form action="#" id="postUpdateForm_{{post.id}}" style="display: none;">
-                        <div style="margin-left:70%;">
-                            <button type="button" class="btn btn-sm btn-danger " onclick="closeUpdateForm('{{post.id}}')">Close</button>
-                        </div>
-                        {{post_form.as_p}}
-                        <button type="button" id="updatePostButton" onclick="updatePost('{{post.id}}')" class="btn btn-primary"> Update </button>
-                    </form>
                 </div>
             </div>
         </div>

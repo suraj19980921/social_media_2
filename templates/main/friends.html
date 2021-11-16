@@ -4,12 +4,12 @@
 <div class="container-fluid">
 
 <div class="row">
-    <div class="col sm-6">
+    <div class="col-sm-6">
        
         <h4 class="heading">Friends</h4>
 
         {% if friends %}
-        <div class="friendsBox">
+        <div class="friendBox">
         {% for friend in friends %}
 
             {% if friend.personOne.id == request.user.id %}
@@ -79,8 +79,9 @@
         {% endif %}
 
             <h4 class="heading">Friend Request Sent </h4>
-            <div class="friendRequestSentBox">
-          
+           
+          {% if requestSent%}
+          <div class="friendBox">
             {% for friend in requestSent %}
 
                 <div class="card mb-2" style="width:80%;">
@@ -104,8 +105,12 @@
             {% endfor %}
       
         </div>
+        {% endif %}
+        <br>
         <h4 class="heading">Friend Request Received </h4>
-        <div class="friendRequestReceivedBox">
+
+        {% if requestReceived %}
+        <div class="friendBox">
         {% for friend in requestReceived %}
 
         <div class="card mb-2"  style="width:80%;">
@@ -129,9 +134,10 @@
        
         {% endfor %}
         </div>
+    {% endif %}
     </div>
-
-    <div class="col sm-6">
+    
+    <div class="col-sm-6">
         <h4 class="heading">People May you know</h4>
      <div class="peopleBox">
         {% for person in people %}

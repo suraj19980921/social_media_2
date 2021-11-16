@@ -172,16 +172,25 @@ function showUpdateForm(postId){
 function updatePost(postId){
 
     var updatedPost =$('#postUpdateForm_'+postId).find('[name="post"]').val();
+    var image = $('#postUpdateForm_'+postId).find('[name="image"]')[0].files[0];
+    var formData = new FormData();
+    formData.append('updatedImage',image)
+    formData.append('postId',postId)
+    formData.append('updatedPost',updatedPost)
     var csrftoken = getCookie('csrftoken')
     $.ajax({
         headers:{'X-CSRFToken':csrftoken},
         type: "post",
         url: "/update_post/",
-        data: {'postId':postId,
-               'updatedPost':updatedPost},
+        data: formData,
+        enctype:'mutlipart/form-data',
+        contentType: false,
+        processData: false,
+        
         success: function () {
-            getPost(postId, function(response){
-                $('#postContent_'+postId).html(response.post[0].fields.post); 
+            getPost(postId, function(data){
+                $('#postContent_'+postId).html(data.post[0].fields.post); 
+                $('#postImage_'+postId).attr('src','/media/'+data.post[0].fields.image);
             });
             
             closeUpdateForm(postId);
@@ -195,4 +204,15 @@ function closeUpdateForm(postId){
     $('#postUpdateForm_'+postId).hide();
 }
  
+$(document).ready(function(){
+    $('form#updateProfile').on('submit',function(){
+        alert("hello 1st");
+        var image = $(this).find('[name="image"]')[0].files.length;
+        alert(image);
+        if(image === 0){
+            alertify.error('please select image ');
+            return false
+        }
+    });
+});
 

@@ -13,7 +13,7 @@
             </div>
             <div class="user-img-update">
                 {% if  request.user.profile_set.all %}
-                <form action="/update_profile/" method="post" enctype="multipart/form-data">
+                <form action="/update_profile/" method="post" enctype="multipart/form-data" id="updateProfile">
                     {% csrf_token %}
                     {{profile_form.as_p}}
                     <button type="submit" class="btn btn-md btn-primary">Update</button>
@@ -44,7 +44,7 @@
              <div class="fw-bold">{{post.user.first_name}} {{post.user.last_name}}</div>
             <p style="font-size:small;">{{post.date}}</p>
             {% if post.image %}
-                <img src="/media/{{post.image}}" alt="" style="width:100%;">
+                <img src="/media/{{post.image}}" alt="" style="width:100%;" id="postImage_{{post.id}}">
             {% endif %}
             <p class="card-text" id="postContent_{{post.id}}">{{post.post}}</p>
           
