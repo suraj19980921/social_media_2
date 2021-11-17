@@ -1,5 +1,5 @@
 from django.contrib.auth import logout
-from django.contrib.auth.views import LoginView,LogoutView,PasswordResetView
+from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
 from auth import forms
 from main import models
